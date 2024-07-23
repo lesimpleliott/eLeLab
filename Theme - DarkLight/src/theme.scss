@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: var(--background);
+  color: var(--text);
+  transition: background-color 500ms ease-in-out, color 500ms ease-in-out;
+}
+
+[data-theme="light"] {
+  --background: #fff;
+  --text: #333;
+  --textColor: deepskyblue;
+  --textColorHover: rgb(0, 131, 175);
+}
+
+[data-theme="dark"] {
+  --background: #333;
+  --text: #fff;
+  --textColor: deeppink;
+  --textColorHover: rgb(197, 2, 106);
+}
