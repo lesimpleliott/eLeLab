@@ -1,0 +1,112 @@
+// ****************************************************************
+// **************************** RESET *****************************
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+// ****************************************************************
+// **************************** GLOBAL ****************************
+body {
+  height: 100dvh;
+  background: #4e4e4e;
+  border: solid deeppink 1px;
+}
+
+.dockContainer {
+  height: 100%;
+  width: 100%;
+  max-width: 1024px;
+  padding-inline: 5vw;
+  display: flex;
+  align-items: center;
+}
+
+// **************************************************************
+// **************************** DOCK ****************************
+$dock-size: 60px;
+$dock-size-hover: 80px;
+
+.dock {
+  margin-block-start: 50px;
+  margin-block-end: 75px;
+  padding: 4px 6px;
+  border-radius: 16px;
+  border: solid 1px rgb(148, 148, 148);
+  background: linear-gradient(rgba(79, 79, 79, 0.2), rgba(229, 229, 229, 0.4));
+  display: flex;
+  align-items: flex-end;
+  list-style: none;
+
+  @media screen and (max-width: 1024px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    padding: 15px;
+  }
+
+  .app {
+    max-width: 95px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    transition: all 150ms ease-out;
+
+    // Gestion des tailles des apps
+    @media screen and (min-width: 1024px) {
+      width: $dock-size;
+      height: $dock-size;
+
+      &:hover {
+        width: $dock-size-hover;
+        height: $dock-size-hover;
+        margin-top: -($dock-size-hover - $dock-size);
+      }
+
+      // App AVANT et APRÈS app survolée
+      &:has(+ .app:hover),
+      &:hover + .app {
+        width: $dock-size + (($dock-size-hover - $dock-size) / 3 * 2);
+        height: $dock-size + (($dock-size-hover - $dock-size) / 3 * 2);
+        margin-top: -(($dock-size-hover - $dock-size) / 3 * 2);
+      }
+
+      // app AVANT/AVANT et APRÈS/APRÈS app survolée
+      &:has(+ .app + .app:hover),
+      &:hover + .app + .app {
+        width: $dock-size + ($dock-size-hover - $dock-size) / 3;
+        height: $dock-size + ($dock-size-hover - $dock-size) / 3;
+        margin-top: -($dock-size-hover - $dock-size) / 3;
+      }
+    }
+
+    .icon {
+      width: 100%;
+      height: 100%;
+      transition: transform 250ms ease-out;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    .appName {
+      padding: 5px 10px;
+      position: absolute;
+      top: -35px;
+      text-align: center;
+      white-space: nowrap;
+      color: #ffffff;
+      background: #000000;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 150ms ease-out;
+    }
+
+    &:hover .appName {
+      opacity: 0.8;
+    }
+  }
+}
